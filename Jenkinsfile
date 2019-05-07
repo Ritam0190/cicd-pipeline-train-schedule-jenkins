@@ -1,11 +1,9 @@
 pipeline {
   agent any 
-  options([
-    parameters([
+  parameters {
       string(name: 'DEPLOY_ENV', defaultValue: 'TESTING', description: 'The target environment', ),
       choice(name: 'User', choices: ['TESTING\nSTAGING\nPRODUCTION'])
-    ])
-  ])
+  }
   stages {
     stage('Build') {
       steps {
