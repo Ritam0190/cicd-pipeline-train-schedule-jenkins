@@ -2,14 +2,14 @@ pipeline {
   agent any 
   parameters {
       string(name: 'DEPLOY_ENV', defaultValue: 'TESTING', description: 'The target environment', )
-      choice(name: 'User', choices: ['TESTING\nSTAGING\nPRODUCTION'])
+      choice(name: 'User', choices: ['dev', 'test', 'master'])
   }
   stages {
     stage('Build') {
       steps {
-      echo "Runnin build on $DEPLOY_ENV by $User"
-      sh './gradelw build --no-daemon'
-      archiveArtifacts artifacts: 'dist/trainSchedule.zip'
+        echo "Runnin build on ${params.DEPLOY_ENV} by ${params.User}"
+        sh './gradelw build --no-daemon'
+        archiveArtifacts artifacts: 'dist/trainSchedule.zip'
       }
     }
   }
